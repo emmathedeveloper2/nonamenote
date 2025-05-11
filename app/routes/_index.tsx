@@ -3,12 +3,23 @@ import {getCurrentUser} from "~/.server";
 import {safeTry} from "~/utils";
 import { Route } from "./+types/_index";
 
-export const meta: Route.MetaFunction = () => {
+export function meta({}: Route.MetaArgs) {
   return [
     { title: "NoNameNotes" },
     { name: "description", content: "No names. No pressure. Just pure thoughts." },
+    { property: "og:url", content: "https://nonamenote.vercel.app" },
+    { property: "og:type", content: "website" },
+    { property: "og:title", content: "NoNameNotes" },
+    { property: "og:description", content: "No names. No pressure. Just pure thoughts." },
+    { property: "og:image", content: "https://nonamenote.vercel.app/opengraph.png" },
+    { property: "twitter:card", content: "summary_large_image" },
+    { property: "twitter:title", content: "NoNameNotes" },
+    { property: "twitter:description", content: "No names. No pressure. Just pure thoughts." },
+    { property: "twitter:image", content: "https://nonamenote.vercel.app/opengraph.png" },
+    { property: "twitter:site", content: "@emmathedev" },
   ];
-};
+}
+
 
 export async function loader({ request } : Route.LoaderArgs){
 
