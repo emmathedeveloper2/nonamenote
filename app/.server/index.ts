@@ -106,6 +106,7 @@ export const sendCode = async (session: typeof sessionsTable.$inferSelect , emai
 
         return updatedSessions[0]
     }catch (e){
+        console.log((e as any).message)
         throw e
     }
 }
