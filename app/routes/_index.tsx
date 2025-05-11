@@ -5,8 +5,8 @@ import { Route } from "./+types/_index";
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "MixStack" },
-    { name: "description", content: "Welcome to MixStack" },
+    { title: "NoNameNotes" },
+    { name: "description", content: "No names. No pressure. Just pure thoughts." },
   ];
 };
 
