@@ -23,18 +23,18 @@ export const links: Route.LinksFunction = () => [
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "MixStack" },
-    { name: "description", content: "A mordern Auth Template" },
-    { property: "og:url", content: "https://example.com" },
+    { title: "NoNameNotes" },
+    { name: "description", content: "No names. No pressure. Just pure thoughts." },
+    { property: "og:url", content: "https://nonamenote.vercel.app" },
     { property: "og:type", content: "website" },
-    { property: "og:title", content: "MixStack" },
-    { property: "og:description", content: "A mordern Auth Template" },
-    { property: "og:image", content: "https://example.com/opengraph.png" },
+    { property: "og:title", content: "NoNameNotes" },
+    { property: "og:description", content: "No names. No pressure. Just pure thoughts." },
+    { property: "og:image", content: "https://nonamenote.vercel.app/opengraph.png" },
     { property: "twitter:card", content: "summary_large_image" },
-    { property: "twitter:title", content: "MixStack" },
-    { property: "twitter:description", content: "A mordern Auth Template" },
-    { property: "twitter:image", content: "https://example.com/opengraph.png" },
-    { property: "twitter:site", content: "@example" },
+    { property: "twitter:title", content: "NoNameNotes" },
+    { property: "twitter:description", content: "No names. No pressure. Just pure thoughts." },
+    { property: "twitter:image", content: "https://nonamenote.vercel.app/opengraph.png" },
+    { property: "twitter:site", content: "@emmathedev" },
   ];
 }
 
