@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import {getCurrentUser} from "~/.server";
 import {safeTry} from "~/utils";
 import { Route } from "./+types/_index";
+import {Button} from "~/components/ui/button";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -40,11 +41,13 @@ export default function Index({ loaderData } : Route.ComponentProps) {
     <div className={"size-full flex flex-col items-center justify-center p-2"}>
         <div className={"w-full md:w-[400px] flex flex-col gap-8 items-center"}>
 
-          <h1 className={"text-xl md:text-5xl font-black"}>MixStack 🧃</h1>
+          <h1 className={"text-xl md:text-5xl font-bold"}>NoNameNote</h1>
 
-          <Link to={user ? '/dashboard' : '/signup'} className={"bg-black text-white dark:bg-white dark:text-black p-2 w-full text-center"}>
-            {user ? "DASHBOARD" : "GET STARTED"}
-          </Link>
+          <Button asChild className={"w-full md:w-[300px]"}>
+            <Link to={user ? '/dashboard' : '/signup'}>
+              {user ? "DASHBOARD" : "GET STARTED"}
+            </Link>
+          </Button>
         </div>
     </div>
   );

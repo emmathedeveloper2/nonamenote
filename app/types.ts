@@ -12,4 +12,5 @@ export enum ERRORS {
     EMAIL_TAKEN = 'Email Taken',
     USER_CREATION_ERROR = "Couldn't create your account",
     SESSION_CREATION_ERROR = "Couldn't create a session",
+    INBOX_NOT_FOUND = "Couldn't Send message"
 }

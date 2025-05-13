@@ -1,5 +1,5 @@
 import db from "~/database";
-import {sessionsTable, usersTable} from "~/database/schema";
+import {noteInboxTable, notesTable, sessionsTable, usersTable} from "~/database/schema";
 import {eq} from "drizzle-orm";
 import jwt from 'jsonwebtoken'
 import {JWT_EXPIRES_IN, JWT_SECRET} from "~/.server/config/env.config";
@@ -51,15 +51,9 @@ export const getUserById = async (id: number) => {
     try {
         const users = await db.select().from(usersTable).where(eq(usersTable.id , id)) as any as Array<typeof usersTable.$inferInsert>
 
-        if(!users[0]) {
-            const err = new Error()
+        if(!users[0]) throw new Error(ERRORS.ACCOUNT_NOT_FOUND)
 
-            err.message = "User not found"
-
-            throw err
-        }
-
-        return users[0]
+        return users[0] as typeof usersTable.$inferSelect
     }catch (e) {
         throw e
     }
@@ -159,6 +153,8 @@ export const signUpWithEmailAndPassword = async (username: string , email: strin
 
         const [ session ] = await db.insert(sessionsTable).values({ userId: user.id , token: null }).returning()
 
+        const [ inbox ] = await db.insert(noteInboxTable).values({ userId: user.id , totalMessages: 0 }).returning()
+
         if(!session) throw new Error(ERRORS.SESSION_CREATION_ERROR)
 
         return session
@@ -187,6 +183,29 @@ export const signInWithEmailAndPassword = async (email: string , password: strin
 
         return session
     }catch (e) {
+        throw e
+    }
+}
+
+
+export const getNotes = async (userId: number) => {
+    try {
+        return await db.select().from(notesTable).where(eq(notesTable.userId , userId))
+    }catch (e) {
+        throw e
+    }
+}
+
+export const saveNote = async (userId: number , text: string) => {
+    try {
+        const [ inbox ] = await db.select().from(noteInboxTable).where(eq(noteInboxTable.userId , userId))
+
+        if(!inbox) throw new Error(ERRORS.INBOX_NOT_FOUND)
+
+        const [ note ] = await db.insert(notesTable).values({ inboxId: inbox.id , userId , text }).returning()
+
+        await db.update(noteInboxTable).set({ totalMessages: inbox.totalMessages + 1 })
+    }catch (e){
         throw e
     }
 }

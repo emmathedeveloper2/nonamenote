@@ -5,6 +5,7 @@ import {getCurrentSession, getCurrentUser} from "~/.server";
 import { redirect } from "react-router";
 import {authCookie} from "~/.server/config/cookies.config";
 import { Route } from "./+types/route";
+import {Button} from "~/components/ui/button";
 
 export async function loader({request}: Route.LoaderArgs) {
     const [sessionSuccess, session] = await safeTry(getCurrentSession(request.headers))
@@ -33,21 +34,20 @@ export default function ChooseVerificationMethodPage() {
                     <LoaderIcon className={"animate-spin"}/>
                     :
                     <div className={"w-full md:w-[400px] flex flex-col gap-8 items-center"}>
-                        <h1 className={"text-3xl"}>Choose Verification Method</h1>
+                        <h1 className={"text-3xl text-center"}>Choose Verification Method</h1>
 
-                        <Link to={'/request-code'}
-                              className={"bg-black text-white dark:bg-white dark:text-black p-2 w-full flex items-center justify-between"}>
-                            <div className={"flex items-center gap-4"}>
-                                <AsteriskSquareIcon/>
-                                Send 6 digit code
-                            </div>
+                        <Button asChild className={"w-full"}>
+                            <Link to={'/request-code'}>
+                                    <AsteriskSquareIcon/>
+                                    Send 6 digit code
+                            </Link>
+                        </Button>
 
-                            <ChevronRightIcon/>
-                        </Link>
-
-                        <Link to={'/signup'} className={"underline"}>
-                            Go to Sign Up
-                        </Link>
+                        <Button asChild variant={"link"}>
+                            <Link to={'/signup'}>
+                                Go to Sign Up
+                            </Link>
+                        </Button>
                     </div>
             }
         </div>

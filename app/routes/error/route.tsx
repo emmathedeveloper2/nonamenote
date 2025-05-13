@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import {Button} from "~/components/ui/button";
 
 
 export default function ErrorPage(){
@@ -7,9 +8,11 @@ export default function ErrorPage(){
         <div className={"size-full flex flex-col items-center justify-center gap-4"}>
             <h1>Oops, Something went wrong</h1>
 
-            <Link to={'/'} className={"md:w-[300px] bg-black text-white dark:bg-white dark:text-black p-2 w-full text-center"}>
-                GO HOME
-            </Link>
+            <Button asChild variant={"link"} className={"w-full md:w-[300px]"}>
+                <Link to={'/'}>
+                    GO HOME
+                </Link>
+            </Button>
         </div>
     )
 }

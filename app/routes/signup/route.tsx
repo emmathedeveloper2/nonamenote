@@ -5,6 +5,8 @@ import { redirect } from "react-router";
 import {authCookie} from "~/.server/config/cookies.config";
 import {safeTry} from "~/utils";
 import { Route } from "./+types/route";
+import {Input} from "~/components/ui/input";
+import {Button} from "~/components/ui/button";
 
 export async function action({ request } : Route.ActionArgs){
 
@@ -39,35 +41,36 @@ export default function SignUpPage({ actionData } : Route.ComponentProps){
                     <p className={"text-center"}>{actionData.message}</p>
                 }
 
-                <input
+                <Input
                     required
                     type="text"
                     name="username"
                     placeholder={"Your Username"}
-                    className={"w-full p-2"}
+                    className={"w-full p-2 shadow-lg"}
                 />
 
-                <input
+                <Input
                     required
                     type="email"
                     name="email"
                     placeholder={"Your Email"}
-                    className={"w-full p-2"}
+                    className={"flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"}
                 />
 
-                <input
+                <Input
                     required
                     type="password"
                     name="password"
                     placeholder={"Your Password"}
-                    className={"w-full p-2"}
+                    className={"w-full p-2 shadow-lg"}
                 />
-                <button
+
+                <Button
                     disabled={isBusy}
-                    className={"bg-black text-white dark:bg-white dark:text-black p-2 w-full flex items-center justify-center"}
+                    className={"w-full shadow"}
                 >
                     {isBusy ? <LoaderIcon className={"animate-spin"}/> : "SIGN UP"}
-                </button>
+                </Button>
 
                 <span className={"flex gap-1"}>
                     Already have an account?

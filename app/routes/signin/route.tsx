@@ -5,6 +5,8 @@ import {authCookie} from "~/.server/config/cookies.config";
 import {safeTry} from "~/utils";
 import {signInWithEmailAndPassword} from "~/.server";
 import { Route } from "./+types/route";
+import {Input} from "~/components/ui/input";
+import {Button} from "~/components/ui/button";
 
 export async function action({ request } : Route.ActionArgs){
 
@@ -35,7 +37,7 @@ export default function SignInPage({ actionData } : Route.ComponentProps){
                     <p className={"text-center"}>{actionData.message}</p>
                 }
 
-                <input
+                <Input
                     required
                     type="email"
                     name="email"
@@ -43,19 +45,19 @@ export default function SignInPage({ actionData } : Route.ComponentProps){
                     className={"w-full p-2"}
                 />
 
-                <input
+                <Input
                     required
                     type="password"
                     name="password"
                     placeholder={"Your Password"}
                     className={"w-full p-2"}
                 />
-                <button
+                <Button
                     disabled={isBusy}
-                    className={"bg-black text-white dark:bg-white dark:text-black p-2 w-full flex items-center justify-center"}
+                    className={"w-full"}
                 >
                     {isBusy ? <LoaderIcon className={"animate-spin"}/> : "SIGN IN"}
-                </button>
+                </Button>
 
                 <span className={"flex gap-1"}>
                     Don't have an account?

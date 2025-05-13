@@ -5,6 +5,9 @@ import {getCurrentUser, verifyCode} from "~/.server";
 import {authCookie} from "~/.server/config/cookies.config";
 import {safeTry} from "~/utils";
 import {Route} from "./+types/route";
+import {Button} from "~/components/ui/button";
+import {InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot} from "~/components/ui/input-otp";
+import {REGEXP_ONLY_DIGITS} from "input-otp";
 
 export async function loader({request}: Route.LoaderArgs) {
 
@@ -46,7 +49,7 @@ export async function action({request}: Route.ActionArgs) {
     })
 }
 
-export default function CodePage({actionData , loaderData}: Route.ComponentProps) {
+export default function CodePage({actionData, loaderData}: Route.ComponentProps) {
 
     const {email} = loaderData
 
@@ -70,29 +73,40 @@ export default function CodePage({actionData , loaderData}: Route.ComponentProps
 
                 <p className={"text-center"}>A 6 digit code was sent to {formatEmail(email)}</p>
 
-                <input
+                <InputOTP
                     required
-                    type="number"
-                    name="code"
-                    placeholder={"6 digit code"}
-                    className={"w-full p-2"}
-                />
+                    name={"code"}
+                    maxLength={6}
+                    pattern={REGEXP_ONLY_DIGITS}
+                >
+                    <InputOTPGroup>
+                        <InputOTPSlot index={0}/>
+                        <InputOTPSlot index={1}/>
+                        <InputOTPSlot index={2}/>
+                    </InputOTPGroup>
+                    <InputOTPSeparator/>
+                    <InputOTPGroup>
+                        <InputOTPSlot index={3}/>
+                        <InputOTPSlot index={4}/>
+                        <InputOTPSlot index={5}/>
+                    </InputOTPGroup>
+                </InputOTP>
 
-                <button
+
+                <Button
                     disabled={isBusy}
                     className={"bg-black text-white dark:bg-white dark:text-black p-2 w-full flex items-center justify-center"}
                 >
                     {isBusy ? <LoaderIcon className={"animate-spin"}/> : "VERIFY ACCOUNT"}
-                </button>
+                </Button>
 
 
                 {!isBusy &&
-                    <span className={"flex gap-1"}>
-                        Didn't receive code?
+                    <Button asChild variant={"link"}>
                         <Link to={'/request-code'} className={"underline"}>
                             Resend Code
                         </Link>
-                    </span>
+                    </Button>
                 }
             </Form>
         </div>
