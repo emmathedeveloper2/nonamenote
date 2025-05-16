@@ -96,7 +96,6 @@ export default function CodePage({actionData, loaderData}: Route.ComponentProps)
 
                 <Button
                     disabled={isBusy}
-                    className={"bg-black text-white dark:bg-white dark:text-black p-2 w-full flex items-center justify-center"}
                 >
                     {isBusy ? <LoaderIcon className={"animate-spin"}/> : "VERIFY ACCOUNT"}
                 </Button>
