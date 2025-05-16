@@ -7,7 +7,8 @@ import {JWT_SECRET} from "~/.server/config/env.config";
 import {safeTry} from "~/utils";
 import {ERRORS} from "~/types";
 import bcrypt, {genSalt, hash} from "bcryptjs";
-import {generateSessionToken, getCurrentSession} from "~/.server/utils";
+import {generateSessionToken} from "~/.server/utils";
+import { getCurrentSession } from "./users.bridge";
 
 export const sendCode = async (session: typeof sessionsTable.$inferSelect , email: string) => {
 
@@ -74,7 +75,7 @@ export const signUpWithEmailAndPassword = async (username: string , email: strin
 
         const [ session ] = await db.insert(sessionsTable).values({ userId: user.id , token: null }).returning()
 
-        const [ inbox ] = await db.insert(noteInboxTable).values({ userId: user.id , totalMessages: 0 }).returning()
+        await db.insert(noteInboxTable).values({ userId: user.id , totalNotes: 0 }).returning()
 
         if(!session) throw new Error(ERRORS.SESSION_CREATION_ERROR)
 
