@@ -67,9 +67,12 @@ export default function CodePage({actionData, loaderData}: Route.ComponentProps)
     return (
         <div className={"size-full flex flex-col items-center justify-center p-2"}>
             <Form method={"POST"} className={"w-full md:w-[400px] flex flex-col gap-8 items-center"}>
+
                 {
                     actionData && !actionData.success &&
-                    <p className={"text-center"}>{actionData.message}</p>
+                    <div className={"w-full border-red-500 border text-red-500 p-2 bg-red-200 rounded flex items-center justify-center"}>
+                        {actionData.message}
+                    </div>
                 }
 
                 <p className={"text-center"}>A 6 digit code was sent to {formatEmail(email)}</p>
