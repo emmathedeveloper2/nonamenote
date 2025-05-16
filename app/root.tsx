@@ -26,7 +26,7 @@ export function meta({}: Route.MetaArgs) {
     return [
         {title: "NoNameNote"},
         {name: "description", content: "No names. No pressure. Just pure thoughts."},
-        {property: "og:url", content: "https://nonamenote.vercel.app/"},
+        {property: "og:url", content: "https://nonamenote.vercel.app"},
         {property: "og:type", content: "website"},
         {property: "og:title", content: "NoNameNote"},
         {property: "og:description", content: "No names. No pressure. Just pure thoughts."},
