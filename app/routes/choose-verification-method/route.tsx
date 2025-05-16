@@ -1,11 +1,11 @@
 import { Link, useNavigation } from "react-router";
 import {AsteriskSquareIcon, ChevronRightIcon, Link2Icon, LoaderIcon} from "lucide-react";
 import {safeTry} from "~/utils";
-import {getCurrentSession, getCurrentUser} from "~/.server/utils";
 import { redirect } from "react-router";
 import {authCookie} from "~/.server/config/cookies.config";
 import { Route } from "./+types/route";
 import {Button} from "~/components/ui/button";
+import {getCurrentSession, getCurrentUser} from "~/.server/bridges/users.bridge";
 
 export async function loader({request}: Route.LoaderArgs) {
     const [sessionSuccess, session] = await safeTry(getCurrentSession(request.headers))
