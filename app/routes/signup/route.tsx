@@ -1,12 +1,12 @@
 import { Form, Link, useNavigation } from "react-router";
 import {LoaderIcon} from "lucide-react";
-import {signUpWithEmailAndPassword} from "~/.server";
 import { redirect } from "react-router";
 import {authCookie} from "~/.server/config/cookies.config";
 import {safeTry} from "~/utils";
 import { Route } from "./+types/route";
 import {Input} from "~/components/ui/input";
 import {Button} from "~/components/ui/button";
+import {signUpWithEmailAndPassword} from "~/.server/bridges/auth.bridge";
 
 export async function action({ request } : Route.ActionArgs){
 

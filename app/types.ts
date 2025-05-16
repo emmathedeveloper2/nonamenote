@@ -12,5 +12,6 @@ export enum ERRORS {
     EMAIL_TAKEN = 'Email Taken',
     USER_CREATION_ERROR = "Couldn't create your account",
     SESSION_CREATION_ERROR = "Couldn't create a session",
-    INBOX_NOT_FOUND = "Couldn't Send message"
+    INBOX_NOT_FOUND = "Couldn't Find the note inbox",
+    UNAUTHORIZED_NOTE_DELETION = "You aren't allowed access to this note as you aren't the owner or the note doesn't exist"
 }

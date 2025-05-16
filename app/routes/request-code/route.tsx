@@ -1,8 +1,9 @@
 import { redirect } from "react-router";
-import {getCurrentSession, getCurrentUser, sendCode} from "~/.server";
 import {safeTry} from "~/utils";
 import {authCookie} from "~/.server/config/cookies.config";
 import { Route } from "./+types/route";
+import {getCurrentSession, getCurrentUser} from "~/.server/bridges/users.bridge";
+import {sendCode} from "~/.server/bridges/auth.bridge";
 
 export const loader = async ({ request } : Route.LoaderArgs) => {
 

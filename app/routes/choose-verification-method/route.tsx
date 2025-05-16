@@ -1,7 +1,7 @@
 import { Link, useNavigation } from "react-router";
 import {AsteriskSquareIcon, ChevronRightIcon, Link2Icon, LoaderIcon} from "lucide-react";
 import {safeTry} from "~/utils";
-import {getCurrentSession, getCurrentUser} from "~/.server";
+import {getCurrentSession, getCurrentUser} from "~/.server/utils";
 import { redirect } from "react-router";
 import {authCookie} from "~/.server/config/cookies.config";
 import { Route } from "./+types/route";

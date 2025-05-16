@@ -22,7 +22,7 @@ export const sessionsTable = pgTable("sessions", {
 export const noteInboxTable = pgTable("note_inbox" , {
     id: integer().primaryKey().generatedAlwaysAsIdentity(),
     userId: integer('user_id').notNull(),
-    totalMessages: integer('total_messages').notNull(),
+    totalNotes: integer('total_notes').notNull(),
 })
 
 export const notesTable = pgTable("notes" , {

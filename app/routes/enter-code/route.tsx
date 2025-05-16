@@ -1,13 +1,14 @@
 import {Form, Link, useNavigation} from "react-router";
 import {LoaderIcon} from "lucide-react";
 import {redirect} from "react-router";
-import {getCurrentUser, verifyCode} from "~/.server";
 import {authCookie} from "~/.server/config/cookies.config";
 import {safeTry} from "~/utils";
 import {Route} from "./+types/route";
 import {Button} from "~/components/ui/button";
 import {InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot} from "~/components/ui/input-otp";
 import {REGEXP_ONLY_DIGITS} from "input-otp";
+import {getCurrentUser} from "~/.server/bridges/users.bridge";
+import {verifyCode} from "~/.server/bridges/auth.bridge";
 
 export async function loader({request}: Route.LoaderArgs) {
 

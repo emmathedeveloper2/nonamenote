@@ -3,10 +3,10 @@ import {LoaderIcon} from "lucide-react";
 import { redirect } from "react-router";
 import {authCookie} from "~/.server/config/cookies.config";
 import {safeTry} from "~/utils";
-import {signInWithEmailAndPassword} from "~/.server";
 import { Route } from "./+types/route";
 import {Input} from "~/components/ui/input";
 import {Button} from "~/components/ui/button";
+import {signInWithEmailAndPassword} from "~/.server/bridges/auth.bridge";
 
 export async function action({ request } : Route.ActionArgs){
 

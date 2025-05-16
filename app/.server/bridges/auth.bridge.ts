@@ -1,92 +1,13 @@
+import {noteInboxTable, sessionsTable, usersTable} from "~/database/schema";
 import db from "~/database";
-import {noteInboxTable, notesTable, sessionsTable, usersTable} from "~/database/schema";
 import {eq} from "drizzle-orm";
-import jwt from 'jsonwebtoken'
-import {JWT_EXPIRES_IN, JWT_SECRET} from "~/.server/config/env.config";
-import {authCookie} from "~/.server/config/cookies.config";
-import {safeTry} from "~/utils";
 import {sendVerificationEmail} from "~/.server/config/email.config";
+import jwt from "jsonwebtoken";
+import {JWT_SECRET} from "~/.server/config/env.config";
+import {safeTry} from "~/utils";
 import {ERRORS} from "~/types";
 import bcrypt, {genSalt, hash} from "bcryptjs";
-
-export const generateSessionToken = () => {
-    let code = ""
-
-    for(let i = 0; i < 6; i++){
-        code += Math.floor(Math.random() * 9).toString()
-    }
-
-    const signedToken = jwt.sign({ code } , JWT_SECRET as any , { expiresIn: JWT_EXPIRES_IN as any })
-
-    return {
-        signedToken,
-        unsignedToken: code
-    }
-}
-
-export const createSession = async (userId: number, token: string | null) => {
-
-    let data = {
-        userId,
-        token
-    }
-
-    return (await db.insert(sessionsTable).values(data).returning() as any as Array<typeof sessionsTable.$inferSelect>)[0]
-}
-
-export const createUser = async (data: typeof usersTable.$inferInsert) => {
-
-    data.verified = false
-
-    return (await db.insert(usersTable).values(data).returning() as any as Array<typeof usersTable.$inferSelect>)[0]
-}
-
-export const getUserByEmail = async (email: string) => {
-
-    return (await db.select().from(usersTable).where(eq(usersTable.email , email)) as any as Array<typeof usersTable.$inferInsert>)[0]
-}
-
-export const getUserById = async (id: number) => {
-
-    try {
-        const users = await db.select().from(usersTable).where(eq(usersTable.id , id)) as any as Array<typeof usersTable.$inferInsert>
-
-        if(!users[0]) throw new Error(ERRORS.ACCOUNT_NOT_FOUND)
-
-        return users[0] as typeof usersTable.$inferSelect
-    }catch (e) {
-        throw e
-    }
-}
-
-export const getCurrentUser = async (headers: Headers) => {
-
-    try{
-        const session = await getCurrentSession(headers)
-
-        return await getUserById(session.userId)
-    }catch (e) {
-        throw e
-    }
-}
-
-export const getCurrentSession = async (headers: Headers) => {
-    try {
-        const cookie = headers.get("Cookie")
-
-        if(!cookie){
-            let err = new Error()
-
-            err.message = "Unauthorized"
-
-            throw err
-        }
-
-        return (await authCookie.parse(cookie)) as typeof sessionsTable.$inferSelect
-    }catch (e) {
-        throw e
-    }
-}
+import {generateSessionToken, getCurrentSession} from "~/.server/utils";
 
 export const sendCode = async (session: typeof sessionsTable.$inferSelect , email: string) => {
 
@@ -183,29 +104,6 @@ export const signInWithEmailAndPassword = async (email: string , password: strin
 
         return session
     }catch (e) {
-        throw e
-    }
-}
-
-
-export const getNotes = async (userId: number) => {
-    try {
-        return await db.select().from(notesTable).where(eq(notesTable.userId , userId))
-    }catch (e) {
-        throw e
-    }
-}
-
-export const saveNote = async (userId: number , text: string) => {
-    try {
-        const [ inbox ] = await db.select().from(noteInboxTable).where(eq(noteInboxTable.userId , userId))
-
-        if(!inbox) throw new Error(ERRORS.INBOX_NOT_FOUND)
-
-        const [ note ] = await db.insert(notesTable).values({ inboxId: inbox.id , userId , text }).returning()
-
-        await db.update(noteInboxTable).set({ totalMessages: inbox.totalMessages + 1 })
-    }catch (e){
         throw e
     }
 }

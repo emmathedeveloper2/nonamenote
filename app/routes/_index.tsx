@@ -1,8 +1,10 @@
 import { Link } from "react-router";
-import {getCurrentUser} from "~/.server";
 import {safeTry} from "~/utils";
 import { Route } from "./+types/_index";
 import {Button} from "~/components/ui/button";
+import Header from "~/components/header";
+import { getCurrentUser } from "~/.server/bridges/users.bridge";
+import {ArrowRightIcon} from "lucide-react";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -38,17 +40,26 @@ export default function Index({ loaderData } : Route.ComponentProps) {
   const { user } = loaderData
 
   return (
-    <div className={"size-full flex flex-col items-center justify-center p-2"}>
-        <div className={"w-full md:w-[400px] flex flex-col gap-8 items-center"}>
+      <>
+      <Header />
+      <div className={"size-full flex flex-col items-center justify-center p-2"}>
+          <div className={"w-full max-w-[1200px] flex flex-col gap-8"}>
 
-          <h1 className={"text-xl md:text-5xl font-bold"}>NoNameNote</h1>
+            <h1 className={"text-xl md:text-5xl lg:text-7xl font-bold"}>No names. No pressure. Just pure thoughts.</h1>
 
-          <Button asChild className={"w-full md:w-[300px]"}>
-            <Link to={user ? '/dashboard' : '/signup'}>
-              {user ? "DASHBOARD" : "GET STARTED"}
-            </Link>
-          </Button>
-        </div>
-    </div>
+            <ul className={"flex flex-col gap-2 list-disc px-6"}>
+              <li>😶 Spill the tea, stay incognito.</li>
+              <li>💬 Share and receive messages without identities.</li>
+            </ul>
+
+            <Button asChild className={"w-full md:w-[300px] group gap-4"}>
+              <Link to={user ? '/dashboard' : '/signup'}>
+                <ArrowRightIcon className={"rotate-45 group-hover:rotate-0 transition-transform"}/>
+                {user ? "DASHBOARD" : "GET STARTED"}
+              </Link>
+            </Button>
+          </div>
+      </div>
+      </>
   );
 }
