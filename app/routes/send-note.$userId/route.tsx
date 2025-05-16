@@ -1,6 +1,6 @@
 import { Route } from "./+types/route";
 import {safeTry} from "~/utils";
-import {Form, redirect, useNavigation} from "react-router";
+import {Form, Link, redirect, useNavigation} from "react-router";
 import {ERRORS} from "~/types";
 import {Button} from "~/components/ui/button";
 import {Textarea} from "~/components/ui/textarea";
@@ -71,8 +71,14 @@ export default function SendMessagePage({ loaderData , actionData } : Route.Comp
     )
     
     if(actionData && actionData.success) return (
-        <div className={"size-full flex flex-col items-center justify-center p-2"}>
-            <h1 className={"text-xl md:text-5xl font-bold"}>Your note has been sent anonymously 👀</h1>
+        <div className={"size-full flex flex-col items-center justify-center p-2 gap-4"}>
+            <h1 className={"text-xl md:text-5xl font-bold text-center"}>Your note has been sent anonymously 👀</h1>
+            <h2 className={"text-lg md:text-3xl font-bold text-center"}>Join the fun and receive messages anonymously. Just Sign Up</h2>
+            <Button asChild>
+                <Link to={'/dashboard'}>
+                    SIGN UP
+                </Link>
+            </Button>
         </div>
     )
 
@@ -93,7 +99,7 @@ export default function SendMessagePage({ loaderData , actionData } : Route.Comp
                         </div>
                     }
 
-                    <h1 className={"text-xl md:text-5xl font-bold"}>
+                    <h1 className={"text-xl md:text-5xl font-bold text-center"}>
                         Send a note to {user.username}
                     </h1>
 
