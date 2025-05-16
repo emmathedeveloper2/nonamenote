@@ -25,6 +25,14 @@ export const verificationEmailTemplate = ({ appName , code } : VerificationTempl
     <tr>
       <td style="padding: 30px 0;">
         <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" align="center" style="background-color: #ffffff; border-radius: 0.5rem; overflow: hidden; box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.06), 1px 1px 2px 0px rgba(0, 0, 0, 0.06);">
+          <!-- Full Width Logo -->
+          <tr>
+            <td style="padding: 0; text-align: center; background-color: #ffffff;">
+              <!-- Full width logo image -->
+              <img src="https://sjc.microlink.io/9Cd7v7sEKVPXUFMTUGYXyMPmgjTVAn0ZBudyaMuLhW9VW47qImoqzK4HTN_OWMtXXi--tT4NzW489Y2W_8sVow.jpeg" alt="NoName Note Logo" style="display: block; width: 100%; height: auto; margin: 0;" />
+            </td>
+          </tr>
+          
           <!-- Header -->
           <tr>
             <td style="padding: 20px 40px 30px; background-color: #8a6ca8; color: #f8f5ff;">
